@@ -16,27 +16,27 @@ class Graph_DFS: public GRAFO {
 
     void visitarP(int u, int *cor) {
       cor[u] = AMARELO;
-      ADJACENCIA *v = adj[u].cab;
+      ADJACENCIA *v = getAdj()->getCab();
 
       while(v) {
-        if (cor[v->vertice] == BRANCO) {
-          visitarP(v->vertice, cor);
+        if (cor[v->getVertice()] == BRANCO) {
+          visitarP(v->getVertice(), cor);
         }
 
-        v = v->prox;
+        v = v->getProx();
       }
       cor[u] = VERMELHO;
     }
 
     void profundidade() {
-      int cor[vertices];
+      int cor[getVertices()];
       int u;
 
-      for (u = 0; u < vertices; u++) {
+      for (u = 0; u < getVertices(); u++) {
         cor[u] = BRANCO;
       }
 
-      for (u = 0; u < vertices; u++) {
+      for (u = 0; u < getVertices(); u++) {
         if (cor[u] == BRANCO) {
           visitarP(u, cor);
         }
