@@ -98,7 +98,6 @@ public:
 
   ADJACENCIA *criaAdj(int v, int peso) {
     ADJACENCIA *temp = new ADJACENCIA;
-    //(ADJACENCIA *) malloc(sizeof(ADJACENCIA));
     temp->setVertice(v);
     temp->setPeso(peso);
     temp->setProx(NULL);
@@ -106,8 +105,6 @@ public:
   }
 
   bool criaAresta(int vi, int vf, TIPOPESO p) {
-    // if (!gr)
-    //   return false;
     if ((vf < 0) || (vf >= vertices))
       return false;
     if ((vi < 0) || (vi >= vertices))
