@@ -1,16 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #define true 1
-#define false 0
-#define BRANCO 0
-#define AMARELO 1
-#define VERMELHO 2
+#define false 2
 typedef int bool;
-typedef int TIPOPESO;
-
+typedef int CHAVE;
+typedef int PESO;
 typedef struct adjacencia {
   int vertice;
-  TIPOPESO peso;
+  PESO peso;
   struct adjacencia *prox;
 } ADJACENCIA;
 
@@ -45,7 +42,7 @@ ADJACENCIA *criaAdj(int v, int peso) {
   return (temp);
 }
 
-bool criaAresta(GRAFO *gr, int vi, int vf, TIPOPESO p) {
+bool criaAresta(GRAFO *gr, int vi, int vf, PESO p) {
   if (!gr) return false;
   if ((vf < 0) || (vf >= gr->vertices)) return false;
   if ((vi < 0) || (vi >= gr->vertices)) return false;
@@ -68,43 +65,4 @@ void imprime(GRAFO *gr) {
     }
     printf("\n");
   }
-}
-
-void visitarP(GRAFO *g, int u, int *cor) {
-  cor[u] = AMARELO;
-  ADJACENCIA *v = g->adj[u].cab;
-  while (v) {
-    if (cor[v->vertice] == BRANCO) {
-      visitarP(g, v->vertice, cor);
-    }
-    v = v->prox;
-  }
-  cor[u] = VERMELHO;
-}
-
-void profundidade(GRAFO *g) {
-  int cor[g->vertices];
-  int u;
-
-  for (u = 0; u < g; u++) {
-    cor[u] = BRANCO;
-  }
-
-  for (u = 0; u < g->vertices; u++) {
-    if (cor[u] == BRANCO) {
-      visitarP(g, u, cor);
-    }
-  }
-}
-
-int main() {
-  GRAFO *gr = criarGrafo(5);
-  criaAresta(gr, 0, 1, 2);
-  criaAresta(gr, 1, 2, 4);
-  criaAresta(gr, 2, 0, 12);
-  criaAresta(gr, 2, 4, 40);
-  criaAresta(gr, 3, 1, 3);
-  criaAresta(gr, 4, 3, 8);
-  imprime(gr);
-  profundidade(gr);
 }
