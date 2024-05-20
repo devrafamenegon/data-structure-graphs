@@ -75,17 +75,15 @@ public:
   }
 
   bool criaAresta(int verticeOrigem, int verticeDestino, PESO peso) {
-    if (!saoValoresValidos) return false;
+    if (!saoValoresValidos(verticeOrigem, verticeDestino)) return false;
 
     ADJACENCIA *novaAdj = new ADJACENCIA(verticeDestino, peso);
 
-    VERTICE arranjoVerticeOrigem = getArranjoVertices()[verticeOrigem];
-
     novaAdj->setProximaAdjacencia(
-      arranjoVerticeOrigem.getAdjacencias()
+      getArranjoVertices()[verticeOrigem].getAdjacencias()
     );
 
-    arranjoVerticeOrigem.setAdjacencias(novaAdj);
+    getArranjoVertices()[verticeOrigem].setAdjacencias(novaAdj);
 
     setNArestas(getNArestas() + 1);
 
@@ -98,14 +96,14 @@ public:
 
     if (verticeOrigem < 0 || verticeOrigem >= nVertices)
       return false;
+
+    return true;
   }
 
   void imprime() {
-    int i;
-
     cout << "Vertices: " << getNVertices() << ", Aresta: " << getNArestas() << endl;
 
-    for (i = 0; i < getNVertices(); i++) {
+    for (int i = 0; i < getNVertices(); i++) {
       cout << "v" << i << ": ";
       
       ADJACENCIA *ad = arranjoVertices[i].getAdjacencias();
